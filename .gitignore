@@ -1,0 +1,9 @@
+venv/
+product/__pycache__/
+core/__pycache__/
+cart/__pycache__/
+fe/__pycache__/
+shop/__pycache__/
+user/__pycache__/
+db.sqlite3/
+user/__pycache__/

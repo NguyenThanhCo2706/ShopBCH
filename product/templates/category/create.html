@@ -1,0 +1,36 @@
+{% extends "homepage/base.html" %}
+
+{% load static %}
+{% block cssblock %}
+<link rel="stylesheet" href="{% static 'product/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="items-product container">
+    <h1 class="title_item">Category</h1>
+    <form action="{% url 'Product:add-category' %}" method="post">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Title</label>
+            {{categoryForm.title}}
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Decription</label>
+            {{categoryForm.description}}
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Slug</label>
+            {{categoryForm.slug}}
+        </div>
+
+        <div class="mb-3 form-check">
+            {{categoryForm.active}}
+            <label class="form-check-label" for="exampleCheck1">Activate</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}

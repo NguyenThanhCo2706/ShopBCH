@@ -1,0 +1,61 @@
+{% extends "homepage/base.html" %}
+{% load static %}
+
+
+{% block cssblock %}
+<link rel="stylesheet" href="{% static 'product/style.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="items-product container">
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        {% for item in products %}
+        <div class="col block-item">
+            <div class="card">
+                <a href="{% url 'Product:detail-product' item.id %}" class="link-div">
+                    <img src="/media/{{ item.image_view }}" class="card-img-top" alt="...">
+                </a>
+                <div class="card-body">
+                    <a href="{% url 'Product:detail-product' item.id %}" class="link-div text-decoration-none">
+                        <h5 class="card-title">Tên sản phẩm: {{ item.title }}</h5>
+                        <p class="card-text">{{ item.description }}</p>
+                        {{ item.price|json_script:"json-price"}}
+                        {{ item.id|json_script:"json-id"}}
+                        <h5 class="card-price text-center price-product">{{ item.price }}</h5>
+                    </a>
+                    <div class="card-btn d-flex justify-content-center">
+                        {% if checkAdmin %}
+                        <div class="card-update">
+                            <a href="{% url 'Product:update-product' item.id %}">
+                                <button type="button" class="btn btn-primary m-2">Update
+                                </button>
+                            </a>
+                        </div>
+                        <div class="card-delete">
+                            <form action="{% url 'Product:delete-product' item.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger m-2">Delete</button>
+                            </form>
+                        </div>
+                        {% else %}
+                        <form action="{% url 'Product:addCart' item.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="card-delete">
+                                <button type="submit" class="btn btn-info">Thêm vào giỏ</button>
+                            </div>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+{% block jsblock %}
+<script src="{% static 'product/app.js' %}">
+</script>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "homepage/base.html" %}
+{% load static %}
+
+
+{% block cssblock %}
+<link rel="stylesheet" href="{% static 'product/style.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="items-product container">
+    <h1 class="title_item">Order</h1>
+    <form action="{% url 'Product:add-product' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Title</label>
+            {{f.order_id}}
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+
+        <div class="mb3">
+            <label for="exampleInputEmail1" class="form-label">Description</label>
+            {{f.pro_id}}
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Category: </label>
+            {{f.number}}
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Price</label>
+            {{f.address_delivery}}
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}
+{% block jsblock %}
+<script src="{% static 'product/app.js' %}">
+</script>
+{% endblock %}

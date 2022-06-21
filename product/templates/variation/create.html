@@ -1,0 +1,59 @@
+{% extends "homepage/base.html" %}
+
+{% load static %}
+{% block cssblock %}
+<link rel="stylesheet" href="{% static 'product/style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="items-product container">
+    <h1 class="title_item">Variation</h1>
+    <form action="{% url 'Product:add-variation' %}" method="post">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Title</label>
+            {{variation.title}}
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Product: </label>
+            {{variation.product}}
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Price</label>
+            {{variation.price}}
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Sale price</label>
+            {{variation.sale_price}}
+        </div>
+
+        <div class="mb-3 form-check">
+            {{variation.active}}
+            <label class="form-check-label" for="exampleCheck1">Activate</label>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Inventory</label>
+            {{variation.inventory}}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<!-- <form action="{% url 'Product:add-variation' %}" method="post">
+    {% csrf_token %}
+    <p> <label>Product: </label> {{variation.product}}</p>
+    <p> <label>Title: </label> {{variation.title}}</p>
+    <p> <label>Price: </label> {{variation.price}}</p>
+    <p> <label>Sale_price: </label> {{variation.sale_price}}</p>
+    <p> <label>Active: </label> {{variation.active}}</p>
+    <p> <label>Inventory: </label> {{variation.inventory}}</p>
+    <input type="submit" value=Submit>
+</form> -->
+{% endblock %}

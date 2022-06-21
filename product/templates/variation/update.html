@@ -1,0 +1,48 @@
+{% extends "homepage/base.html" %}
+
+{% load static %}
+{% block cssblock %}
+<link rel="stylesheet" href="{% static 'product/style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="items-product container">
+    <h1 class="title_item">Variation</h1>
+    <form action="{% url 'Product:update-variation-post' variation.id %}" method="post">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Title</label>
+            {{variationForm.title}}
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Product: </label>
+            {{variationForm.product}}
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Price</label>
+            {{variationForm.price}}
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Sale price</label>
+            {{variationForm.sale_price}}
+        </div>
+
+        <div class="mb-3 form-check">
+            {{variationForm.active}}
+            <label class="form-check-label" for="exampleCheck1">Activate</label>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Inventory</label>
+            {{variationForm.inventory}}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}

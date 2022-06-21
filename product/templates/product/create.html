@@ -1,0 +1,68 @@
+{% extends "homepage/base.html" %}
+
+{% load static %}
+{% block cssblock %}
+<link rel="stylesheet" href="{% static 'product/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="items-product container">
+    <h1 class="title_item">Product</h1>
+    <form action="{% url 'Product:add-product' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Title</label>
+            {{productForm.title}}
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Description</label>
+            {{productForm.description}}
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Category: </label>
+            {{productForm.category}}
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Price</label>
+            {{productForm.price}}
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+
+        <div class="mb-3 form-check">
+            {{productForm.active}}
+            <label class="form-check-label" for="exampleCheck1">Activate</label>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Product_img</label>
+            {{productForm.product_img}}
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Image View</label>
+            {{productForm.image_view}}
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <!-- <h1>Cach ra</h1>
+
+    <form action="{% url 'Product:add-product' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p> <label>title: </label> {{productForm.title}}</p>
+        <p> <label>description: </label> {{productForm.description}}</p>
+        <p> <label>category: </label> {{productForm.category}}</p>
+        <p> <label>price: </label> {{productForm.price}}</p>
+        <p> <label>active: </label> {{productForm.active}}</p>
+        <p> <label>Image: </label> {{productForm.product_img}}</p>
+        <p> <label>ImageView: </label> {{productForm.image_view}}</p>
+        <input type="submit" value=Submit>
+    </form> -->
+</div>
+{% endblock %}

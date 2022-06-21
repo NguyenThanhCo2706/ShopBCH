@@ -1,0 +1,34 @@
+{% extends "homepage/base.html" %}
+
+{% block content %}
+<div class="items-product container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Price</th>
+                <th scope="col">Price sale</th>
+                <th scope="col">Activate</th>
+                <th scope="col">Inventory</th>
+                <th scope="col">Update</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in variations %}
+            <tr>
+                <th scope="row">1</th>
+                <td>{{ item.title }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.sale_price }}</td>
+                <td>{{ item.active }}</td>
+                <td>{{ item.inventory }}</td>
+                <td><a href="{% url 'Product:update-variation' item.id %}"><button type="button" class="btn btn-primary">Update</button></a></td>
+                <td><a href="{% url 'Product:delete-variation' item.id %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

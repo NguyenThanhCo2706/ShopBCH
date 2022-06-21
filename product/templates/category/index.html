@@ -1,0 +1,30 @@
+{% extends "homepage/base.html" %}
+
+{% block content %}
+<div class="items-product container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Slug</th>
+                <th scope="col">Update</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in categoryes %}
+            <tr>
+                <th scope="row" style="text-align:center">{{ item.id }}</th>
+                <td class="table-primary">{{ item.title }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.slug }}</td>
+                <td><a href="{% url 'Product:update-category' item.id %}"><button type="button" class="btn btn-primary">Update</button></a></td>
+                <td><a href="{% url 'Product:delete-category' item.id %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

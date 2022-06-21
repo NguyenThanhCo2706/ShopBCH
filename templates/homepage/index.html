@@ -1,0 +1,35 @@
+{% extends 'homepage/base.html' %}
+{% load static %}
+{% block cssblock %}
+<link rel="stylesheet" href="{% static 'homepage/css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="carouselExampleControls" class="carousel slide container" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-interval='1'>
+        <img src="{% static 'homepage/img/shop4.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item" data-interval='1'>
+        <img src="{% static 'homepage/img/shop5.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item" data-interval='1'>
+        <img src="{% static 'homepage/img/shop3.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+{% endblock %}
+{% block jsblock %}
+<script src="{% static 'homepage/js/app.js' %}">
+</script>
+<script src="{% static 'homepage/js/jquery.js' %}">
+</script>
+{% endblock %}

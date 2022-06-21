@@ -1,0 +1,157 @@
+{% load static %}
+<!-- Newsletter -->
+<section class="bg-dark text-light p-3">
+  <div class="container">
+    <div class="d-md-flex justify-content-between align-items-center">
+      <a href="{% url 'Home:home' %}" style="text-decoration: none;"><h3 class="mb-3 mb-md-0 fs-1">BCH SHOP</h3></a>
+      <div class="row justify-content-center">
+        {% if not user.is_authenticated %}
+        <div class="col-6"><a href="{% url 'User:create-user' %}">Register</a></div>
+        <div class="col-6"><a href="{% url 'User:login-user' %}">Sign in</a></div>
+        {% else %}
+        <div class="col-4  mx-auto"> <img style="vertical-align: middle;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;" src="/media/{{ user.avatar }}" alt="Avatar" class="avatar"></a></div>
+        <div class="col-4 "><a href="#" class="fs-5  align-middle">{{ request.user.username }}</a></div>
+        <div class="col-4"><a href="{% url 'User:logout-user' %}" class="m-3"><i class="fa fa-sign-out fa-xl"
+              aria-hidden="true"></i></a></div>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3">
+  <div class="container">
+    {% if not checkAdmin %}
+    <div class="me-5 pe-5">
+      <a href="{% url 'Product:products' %}" class="navbar-brand fs-5">Product</a>
+    </div>
+    {% else %}
+    <div class="collapse navbar-collapse me-2" id="navmenu">
+      <ul class="navbar-nav ms-auto ">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fs-5 me-5 pe-5" href="{% url 'Product:products' %}" id="navbarDropdown"
+            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Product
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url 'Product:products' %}">All Product</a></li>
+            <li><a class="dropdown-item" href="{% url 'Product:create-product' %}">Create Product</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    {% endif %}
+    <div class="input-group news-input m-auto position-relative" id="content">
+      <input type="text" class="form-control" placeholder="Find product ..." id="cowngu" onkeyup='myFunction()' />
+      <button class="btn btn-danger btn-lg" type="button">Search</button>
+    </div>
+    <div class="collapse navbar-collapse justify-content-end" id="navmenu">
+      <ul class="navbar-nav ms-auto ">
+        {% if checkAdmin %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fs-5" href="{% url 'Product:categoryes' %}" id="navbarDropdown"
+            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Category
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url 'Product:categoryes' %}">All Category</a></li>
+            <li><a class="dropdown-item" href="{% url 'Product:create-category' %}">Create Category</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fs-5" href="{% url 'Product:variations' %}" id="navbarDropdown"
+            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Variation
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url 'Product:variations' %}">All Variation</a></li>
+            <li><a class="dropdown-item" href="{% url 'Product:create-variation' %}">Create Variation</a></li>
+          </ul>
+        </li>
+        {% else %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fs-5" href="{% url 'Product:categoryes' %}" id="navbarDropdown"
+            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Category
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for item in category_title %}
+            <li><a class="dropdown-item" href="{% url 'Product:category_search' item.id %}">{{item.title}}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+        <li class="nav-item ms-3" style="display: flex; align-items: center;">
+          <div class="cart">
+            <div class="cart_container d-flex flex-row align-items-center justify-content-end">
+              <a href="{% url 'Product:cart' %}"><i class="fa fa-shopping-cart fa-xl" aria-hidden="true"></i></a>
+              <div class="cart_icon">
+                <div class="cart_count" style="
+                display: block;
+                margin-bottom: 15px;"><span>{{cart}}</span></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item ms-3" style="display: flex; align-items: center;">
+          <div class="cart">
+            <div class="cart_container d-flex flex-row align-items-center justify-content-end">
+              <a href="{% url 'Order:all-order' %}"><i class="fa fa-truck fa-xl" aria-hidden="true"></i></a>
+              <div class="cart_icon">
+                <div class="cart_count" style="
+                display: block;
+                margin-bottom: 15px;"><span>{{numberOrder}}</span></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        {% endif %}
+        {% if checkAdmin %}
+        <li class="nav-item ">
+          <a href="{% url 'Order:all-order' %}" class="nav-link fs-5">Order</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- <div id="content"></div> -->
+<div class="mt-5"></div>
+
+<!-- Slider -->
+<div class="container" style="z-index: -100;">
+  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{% static 'homepage/img/8.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'homepage/img/9.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'homepage/img/10.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'homepage/img/11.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'homepage/img/12.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <div class="mb-5"></div>
+</div>
+
+<!-- <i class="fas fa-chevron-down"></i> -->

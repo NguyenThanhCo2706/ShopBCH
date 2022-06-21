@@ -1,0 +1,100 @@
+{% extends "homepage/base.html" %}
+
+{% load static %}
+{% block cssblock %}
+<link rel="stylesheet" href="{% static 'product/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-center row">
+        <div class="col-md-12">
+            <div class="rounded">
+                <div class="table-responsive table-borderless">
+                    {% if cart > 0 %}
+                    <h2 class="text-center">YOUR CART</h2>
+                    <table class="table text-center">
+                        <thead>
+                            <tr>
+                                <th>Name Product</th>
+                                <th>Image</th>
+                                <th>Number</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                                <th>Option</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-body" >
+                            {% for key, value in cartInfo.items %}
+                                <tr class="cell-1 ">
+                                    <td>{{ value.name }}</td>
+                                    <td><img src="{{ value.image }}" class="rounded float-left img-cart" alt="..."></td>
+                                    
+                                    <td>{{ value.number }}</td>
+                                    <td>{{ value.price }}</td>
+                                    <td>{{ value.total }}</td>
+                                    <td>
+                                        <a href="{% url 'Product:delete-item-cart' value.id %}">
+                                            <button type="button" class="btn btn-danger">Delete</button>
+                                        </a>
+                                </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <button type="button" onclick="fillInfo()" class="btn btn-outline-primary m-2">
+                        Purchase confirmation
+                        </button>
+                    {% else %}
+                        <div class="card">
+                        <div class="card-body cart">
+                                <div class="col-sm-12 empty-cart-cls text-center">
+                                    <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                                    <h3><strong>Your Cart is Empty</strong></h3>
+                                    <h4>Add something to make me happy :)</h4>
+                                    <a href="{% url 'Product:products' %}" class="btn btn-primary cart-btn-transform m-3" data-abc="true">Continue shopping</a>
+                                </div>
+                        </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="Info" class="container-fluid" style="display: none;">
+        <form action="{% url 'Order:new-order' %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col">
+                    <label>Recipient's name</label>
+                  <input type="text" class="form-control" placeholder="Recipient's name" name="name_receive">
+                </div>
+                <div class="col">
+                    <label>Phone number</label>
+                  <input type="text" class="form-control" placeholder="Phone number" name="phone_number">
+                  
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label>Receiving address</label>
+                  <input type="text" class="form-control" placeholder="Receiving address" name="address_receive">
+                  
+                </div>
+                <div class="col">
+                    <label>Description</label>
+                  <input type="textarea" class="form-control" placeholder="Description" name="description">
+                  
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Order</button>
+          </form>
+    </div>
+</div>
+<script> 
+    function fillInfo(){ 
+    document.getElementById('Info').style.display = 'block';
+}
+</script>
+{% endblock %}
+

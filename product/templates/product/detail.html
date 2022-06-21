@@ -1,0 +1,156 @@
+{% extends "homepage/base.html" %}
+{% load static %}
+
+
+{% block cssblock %}
+<link rel="stylesheet" href="{% static 'product/style.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="mb-2">
+        <h4 class="p-2">{{ product.title }}</h4>
+        <span class="px-2"></span>(0) lượt đánh giá)</span>
+        <span class="px-5">Tình trạng: {% if product.active %} Còn hàng {% else %} Hết hàng {% endif %}</span>
+        <span class="">Bảo hành: 12 Tháng</span>
+    </div>
+    <div class="mb-2 line-bottom"></div>
+    <div class="card">
+        <div class="row">
+            <div class="col-4" style="display: flex;
+            justify-content: space-evenly;
+            flex-direction: column;">
+                <img src="/media/{{ product.image_view }}" style="width:100%; object-fit: contain;" />
+                <div class="container">
+                    {{ product.description }}
+                </div>
+            </div>
+            <div class="col mx-4">
+                <div class="p-2">
+                    <div>
+                        <h6 class="p-3 bg-success text-white">Khuyến mãi - Quà tặng</h6>
+                        <ul>
+                            <li>Balo laptop hoặc túi xách Laptop trị giá 350.000</li>
+                            <li>Đến tản nhiệt có quạt làm mát Laptop N192 trị giá 190.000</li>
+                            <li>Chuột không dây trị giá 170.000 </li>
+                            <li>Bộ dụng cụ vệ sinh laptop trị giá 50.000 </li>
+                            <li>Tấm lót chuột cao cấp P03 </li>
+                            <li>Giảm 10% khi mua phụ kiện kèm theo như: túi chống sốc, túi xách, ba lô, quạt tản nhiệt
+                                laptop, bàn phím, chuột, tai nghe, các loại đầu chuyển, cáp chuyển. Mức giảm tối đa
+                                200.000/1 sản phẩm </li>
+                            <li>Trả góp lãi suất 0% áp dụng cho thẻ tín dụng Sacombank, VPbank. Trả góp lãi suất ưu đãi
+                                áp dụng cho nhà tài chính HD Saison và ACS. Trả góp lãi suất uư đãi thông qua cổng MPOS
+                                áp dụng cho thẻ tín dụng: Citibank, Eximbank, HSBC, MSB, Techcombank, Nam Á, Shinhan
+                                bank, TP bank, Seabank, Kiên Long bank, OCB, VIB, ACB, MB, Vietcombank, SHB...</li>
+                        </ul>
+                    </div>
+                    <div class="d-flex justify-content-center mb-3">
+                        {{ product.price|json_script:"json-price"}}
+                        <h3 id="price-product"></h3>
+                        <script>
+                            let price = JSON.parse(document.getElementById('json-price').textContent);
+                            price = price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+                            let a = document.getElementById("price-product")
+                            a.innerHTML = price
+                        </script>
+                    </div>
+
+                    {% if not checkAdmin %}
+                    <div class="d-flex justify-content-center">
+                        <a href="{% url 'Product:addCart' product.id %}" class="link-div m-1">
+                            <div class="card-delete">
+                                <button type="submit" class="btn btn-success">Buy Now</button>
+                            </div>
+                        </a>
+                        <a href="{% url 'Product:addCart' product.id %}" class="link-div m-1">
+                            <div class="card-delete">
+                                <button type="submit" class="btn btn-danger">Add to cart</button>
+                            </div>
+                        </a>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+            <div class="col p-3">
+                <div>
+                    <ul>
+                        <h4>Trợ giúp:</h4>
+                        <li><a href="#" target="_blank">Hướng dẫn mua hàng nhanh chóng</a></li>
+                        <li><a href="#" target="_blank">Chính sách bảo hành</a></li>
+                        <li><a href="#" target="_blank">Chính sách đổi hàng</a></li>
+                    </ul>
+                    <ul>
+                        <h4>Điện thoại tư vấn - đặt hàng:</h4>
+                        <li>Phan Văn Bình - 0935 81 87 31</li>
+                        <li>Nguyễn Thanh Cơ - 0903 555 310</li>
+                        <li>Lê Văn Huy - 0932 678 771</li>
+                    </ul>
+                    <ul>
+
+                        <h4>Địa chỉ mua hàng:</h4>
+                        <li>54 Nguyễn Lương Bằng, Hoà Khánh Bắc, Liên Chiểu, Đà Nẵng</li>
+                    </ul>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3780.5580573595416!2d108.21084147865716!3d16.061009620781476!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314218d68dff9545%3A0x714561e9f3a7292c!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBCw6FjaCBLaG9hIC0gxJDhuqFpIGjhu41jIMSQw6AgTuG6tW5n!5e0!3m2!1svi!2sus!4v1652886590405!5m2!1svi!2sus"
+                        width="100%" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<section style="background-color: #b2b2b2; border-radius: 1rem;" class="container">
+    <form action="{% url 'Product:add_message' %}" method="POST" class="py-5 d-flex justify-content-center">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+            <input type="hidden" name="id_product" value="{{product.id}}" />
+            <input type="text" class="form-control" placeholder="Type comment..." aria-label="Recipient's username"
+                aria-describedby="button-addon2" name="message">
+            <button type="submit" class="btn btn-success" id="chat-message-submit">Comment</button>
+        </div>
+    </form>
+
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-12 col-lg-10">
+                <div class="card text-dark">
+                    <div class="card-body p-4">
+                        <h4 class="mb-0">Recent comments</h4>
+                        <p class="fw-light mb-4 pb-2">Latest Comments section by users</p>
+                    </div>
+                    <hr class="my-0" />
+                </div>
+                <div class="card text-dark" id="chat-messages">
+
+                    {% for message in messages %}
+                    <div class="card-body p-4">
+                        <div class="d-flex flex-start">
+                            <img class="rounded-circle shadow-1-strong me-3" src="/media/{{ message.user.avatar }}"
+                                alt="avatar" width="60" height="60" />
+                            <div>
+                                <h6 class="fw-bold mb-1">{{ message.user.username }}</h6>
+                                <div class="d-flex align-items-center mb-3">
+                                    <p class="mb-0">
+                                        {{ message.date_added }}
+                                        <span class="badge bg-success">Feedback</span>
+                                    </p>
+                                </div>
+                                <p class="mb-0">
+                                    {{ message.message }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-0" />
+                    {%endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

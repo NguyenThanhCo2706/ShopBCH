@@ -1,0 +1,73 @@
+{% extends "homepage/base.html" %}
+{% load static %}
+
+
+{% block cssblock %}
+<link rel="stylesheet" href="{% static 'order/style.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-center row">
+        <div class="col-md-12">
+            <div class="rounded">
+                <div class="table-responsive table-borderless">
+                    <h2 class="text-center mb-5">YOUR ORDER DETAIL</h2>
+                    <table class="table text-center mt-2">
+                        <thead>
+                            <tr>
+                                <th>ID Order</th>
+                                <th>Name product</th>
+                                <th>Price</th>
+                                <th>Number</th>
+                                <th>Total Money</th>
+                                <th>Address</th>
+                                {% if checkAdmin %}
+                                    <th>Option</th>
+                                {% else %}
+                                    <th>Option</th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody class="table-body" >
+                            {% for item in order_detail %}
+                                <tr class="cell-1 ">
+                                    <td>{{ item.order_id }}</td>
+                                    <td>{{ item.pro_name }}</td>
+                                    <td>{{ item.money }}</td>
+                                    <td>{{ item.amount }}</td>
+                                    <td>{{ item.total_money }}</td>
+                                    <td>{{ item.address_delivery }}</td>
+                                    {% if not checkAdmin %}
+                                        {% if not buy %}
+                                            <td><a href="{% url 'Order:delete-order-detail' item.id %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+                                        {% else %}
+                                            <td><a href=""><button type="button" class="btn btn-success"> Delivery </button></a></td>
+                                        {% endif %}
+                                    {% else %}
+                                        {% if not buy %}
+                                            <td><a href="{% url 'Order:confirm-order' item.order_id %}"><button type="button" class="btn btn-success">Confirm order</button></a></td>
+                                        {% else %}
+                                            <td><a href=""><button type="button" class="btn btn-success"> Delivery </button></a></td>
+                                        {% endif %}
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                        
+                    </table>    
+                    {% if checkAdmin %}
+                        <p class="text-danger">**Note: item validation for all</p> 
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block jsblock %}
+<script src="{% static 'product/app.js' %}">
+</script>
+{% endblock %}

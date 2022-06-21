@@ -1,0 +1,9 @@
+<form action ="{% url 'User:update-user-post' user.id %}" method = "post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p> <label>Username: </label> {{userForm.username}}</p>
+    <p> <label>Email: </label> {{userForm.email}}</p>
+    <p> <label>Phonenumber: </label> {{userForm.phone_number}}</p>
+    <p> <label>Address: </label> {{userForm.address}}</p>
+    <p> <label>Avatar: </label> {{userForm.avatar}}</p>
+    <input type="submit" value=Update>
+</form>

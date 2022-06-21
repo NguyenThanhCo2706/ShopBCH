@@ -1,0 +1,48 @@
+.table 
+{
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+.table td, .table th {
+    border: 1px solid rgb(255, 255, 255);
+    padding: 8px;
+  }
+.table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #5281d8;
+    color: white;
+  }
+.table tr:nth-child(even){background-color: #f2f2f2;}
+.table td {
+    text-align: center;
+    vertical-align: middle;
+  }
+.table tr:hover {
+    background-color: #8caeee;
+  }
+
+
+@import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+.card {
+      margin-bottom: 30px;
+      border: 0;
+      -webkit-transition: all .3s ease;
+      transition: all .3s ease;
+      letter-spacing: .5px;
+      border-radius: 8px;
+      -webkit-box-shadow: 1px 5px 24px 0 rgba(68,102,242,.05);
+      box-shadow: 1px 5px 24px 0 rgba(68,102,242,.05);
+  }
+  
+.card .card-body {
+      padding: 30px;
+      background-color: transparent;
+  }
+  
+.btn-primary, .btn-primary.disabled, .btn-primary:disabled {
+      background-color: #4466f2!important;
+      border-color: #4466f2!important;
+  }
+  

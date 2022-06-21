@@ -1,0 +1,54 @@
+{% extends "homepage/base.html" %}
+
+{% load static %}
+{% block cssblock %}
+<link rel="stylesheet" href="{% static 'product/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="items-product container">
+    <h1 class="title_item">Product</h1>
+    <form action="{% url 'Product:update-product-post' product.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Title</label>
+            {{productForm.title}}
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+
+        <label for="exampleInputEmail1" class="form-label">Description</label>
+        <div class="form-floating">
+            {{productForm.description}}
+            <label for="floatingTextarea2">Description</label>
+        </div>
+
+        <label for="exampleInputEmail1" class="form-label">Category: </label>
+        {{productForm.category}}
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Price</label>
+            {{productForm.price}}
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+
+        <div class="mb-3 form-check">
+            {{productForm.active}}
+            <label class="form-check-label" for="exampleCheck1">Activate</label>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Product_img</label>
+            {{productForm.product_img}}
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Image View</label>
+            {{productForm.image_view}}
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</div>
+{% endblock %}
