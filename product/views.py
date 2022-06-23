@@ -89,8 +89,8 @@ def category_search(request, id):
             request.session['cart'] = {}
     numberOrder = 0
     if request.user.is_authenticated:
-        id = request.user.id
-        numberOrder = Order.objects.filter(user=id, is_completed = False).count()
+        iduser = request.user.id
+        numberOrder = Order.objects.filter(user=iduser, is_completed = False).count()
     product = Product.objects.filter(category = id)
     qs1 = Category.objects.values("id", "title")
     checkAdmin = request.user.is_superuser

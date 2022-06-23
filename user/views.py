@@ -33,7 +33,6 @@ class CreateUser(View):
         password = request.POST.get('password')
         avatar = request.FILES['avatar']
         # group = Group.objects.get(name = 'User')
-        print(avatar)
         if avatar is None:
             avatar = "avatar.png"
         user = CustomerUser.objects.create(username=username, avatar=avatar)
@@ -75,11 +74,13 @@ class LoginUser(View):
         username =  request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username=username, password=password) 
+        
         if user is not None:
             login(request, user)
             return redirect('/product/')
-        else:       
-            return HttpResponse('Invalid data login')
+        else:      
+
+            return render(request, 'user/login.html', {'error': "Tài khoản hoặc mật khẩu không chính xác !"})
 class LogoutUser(View):
     def get(self, request, *args, **kwargs):
         logout(request)
